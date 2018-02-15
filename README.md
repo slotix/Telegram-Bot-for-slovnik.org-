@@ -13,12 +13,7 @@ Thanks to http://slovnik.sk for their awsome dictionary.
 
 1. Create a new bot and get your Telegram bot HTTP API token. 
 Find more info at https://core.telegram.org/bots#6-botfather  
-2. Initialise your TOKEN = '' variable with newly generated value.
+2. Create new .env file with specified settings. See .example.env
+3. Initialise your TOKEN = '' variable with newly generated value.
 The token is a string looks like 110201543:AAHdqTcvCH1vGWJxfSeofSAs0K5PALDsaw that will be required to authorize the bot and send requests to the Bot API.
-```
-File: slovnik.py
-#Here insert your Telegram bot HTTP API
-TOKEN = '110201543:AAHdqTcvCH1vGWJxfSeofSAs0K5PALDsaw'
-```
-
-3. Launch pyhton slovnik.py
+4. Launch pyhton slovnik.py

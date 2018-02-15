@@ -1,6 +1,7 @@
 import requests
 from bs4 import BeautifulSoup
 import re
+import os 
 
 '''http://slovnik.azet.sk/preklad/rusko-slovensky/?q=минимализм'''
 BASE_URL = "http://slovnik.azet.sk/preklad/{}-{}/?q={}"
@@ -22,8 +23,11 @@ class Parser:
     def __init__(self, q):
         self.query = q.strip()
         self.text_length = MAX_LENGTH
-        self.source = '{}o'.format(languages[0])
-        self.target = '{}y'.format(languages[7])
+        #self.source = '{}o'.format(languages[0])
+        #self.target = '{}y'.format(languages[7])
+        self.source = '{}o'.format(os.environ['SOURCE'])
+        self.target = '{}y'.format(os.environ['TARGET'])
+
 
     def download(self):
         r =requests.get(BASE_URL.format(self.source, self.target, self.query))
@@ -42,8 +46,12 @@ class Parser:
 
 
         text = '\n'.join(translated_items)
-        output = (text[:self.text_length] + '...\n') if len(text) > self.text_length else text
-        return output
+        if len(text) > self.text_length:
+            txt = (text[:self.text_length] + '...\n')
+            link  = '<a href="{}">More... </a>.'.format(BASE_URL.format(self.source, self.target, self.query))
+            return '{0}\n{1}'.format(txt, link)
+        else:
+            return text
 
     def get_translated_text(self, length= MAX_LENGTH):
         self.download()
@@ -54,5 +62,4 @@ class Parser:
             self.target = '{}y'.format(languages[0])
             self.download()
             result = self.parse()
-        link  = '<a href="{}">More...</a>.'.format(BASE_URL.format(self.source, self.target, self.query))
-        return '{0}{1}'.format(result, link)
+        return result
