@@ -2,3 +2,4 @@
 venv36
 .env
 *.pyc
+log/slovnik.log

@@ -28,7 +28,7 @@ class Parser:
     def download(self):
         r =requests.get(BASE_URL.format(self.source, self.target, self.query))
         r.encoding = 'utf-8'
-        self.soup = BeautifulSoup(r.text, "lxml")
+        self.soup = BeautifulSoup(r.text, "html.parser")
 
 
     def parse(self):

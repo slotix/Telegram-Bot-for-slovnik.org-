@@ -22,6 +22,9 @@ logging.basicConfig(
         level=logging.INFO)
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.DEBUG)
+fileHandler = logging.FileHandler("{0}/{1}.log".format("log","slovnik"))
+logger.addHandler(fileHandler)
+
 
 
 def log_params(method_name, update):
@@ -35,7 +38,7 @@ def start(bot, update):
     log_params('start', update)
     bot.sendMessage(update.message.chat_id
         , text="""Tento bot prekladá slová z ruštiny do slovenčiny a zo slovenčiny do ruštiny.
-Этот бот переводит слова с русского на словацкий и со словацкого на русский.""")
+Этот бот переводит слова с русского на словацкий и со словацкого на русский. """)
 
 def translate(bot, update, count=OUTPUT_LIMIT):
     log_params('translate', update)
@@ -45,7 +48,7 @@ def translate(bot, update, count=OUTPUT_LIMIT):
     return bot.sendMessage(chat_id=update.message.chat_id, text=translated_text, parse_mode=ParseMode.HTML)
 
 def unknown(bot, update):
-    bot.sendMessage(chat_id=update.message.chat_id, text="Извините, я не понимаю данную команду.")
+    bot.sendMessage(chat_id=update.message.chat_id, text="Неизвестная команда. Neznáma inštrukcia.")
 
 '''
 def complete(bot, update):

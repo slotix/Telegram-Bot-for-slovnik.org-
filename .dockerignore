@@ -1,0 +1,6 @@
+__pycache__
+.vscode
+shots
+venv36
+.example.env
+.gitignore
