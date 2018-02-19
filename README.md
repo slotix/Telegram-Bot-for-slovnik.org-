@@ -20,5 +20,8 @@ The token is a string looks like 110201543:AAHdqTcvCH1vGWJxfSeofSAs0K5PALD that 
 5. specify LANGUAGE : 'anglicky', 'nemecky', 'francuzsky', 'spanielsky', 'madarsky', 'taliansky', 'rusky'
 6. Launch pyhton slovnik.py
 
-Launch dockerized image on production server
-docker run -d -it --rm --restart=always -v $(pwd)/log:/slovnik/log slotix/slovnik
+Dev
+docker run -d -it --rm -v $(pwd)/log:/slovnik/log slotix/slovnik
+
+Production
+docker run -d -it --restart=always -v $(pwd)/log:/slovnik/log slotix/slovnik
