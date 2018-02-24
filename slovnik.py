@@ -19,7 +19,7 @@ OUTPUT_LIMIT = int(os.environ['OUTPUT_LIMIT'])
 # Enable Logging
 logging.basicConfig(
         format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
-        level=logging.INFO)
+        level=logging.DEBUG)
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.DEBUG)
 fileHandler = logging.FileHandler("{0}/{1}.log".format("log","slovnik"))
@@ -28,17 +28,17 @@ logger.addHandler(fileHandler)
 
 
 def log_params(method_name, update):
-    logger.debug("Method: %s\nFrom: %s\nchat_id: %d\nText: %s" %
-                (method_name,
-                 update.message.from_user,
-                 update.message.chat_id,
+    logger.debug("\nFrom: %s - %s %s \ndate: %s\nText: %s" %
+                (update.message.from_user.username,
+                 update.message.from_user.first_name,
+                 update.message.from_user.last_name,
+                 update.message.date,
                  update.message.text))
 
 def start(bot, update):
     log_params('start', update)
-    bot.sendMessage(update.message.chat_id
-        , text="""Tento bot prekladá slová z ruštiny do slovenčiny a zo slovenčiny do ruštiny.
-Этот бот переводит слова с русского на словацкий и со словацкого на русский. """)
+    bot.sendMessage(update.message.chat_id, 
+        text="""Tento bot prekladá slová z ruštiny do slovenčiny a zo slovenčiny do ruštiny. Этот бот переводит слова с русского на словацкий и со словацкого на русский. """)
 
 def translate(bot, update, count=OUTPUT_LIMIT):
     log_params('translate', update)
