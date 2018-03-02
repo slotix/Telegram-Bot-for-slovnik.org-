@@ -12,17 +12,14 @@ BASE_URL = "http://slovnik.azet.sk/preklad/{}-{}/?q={}"
 '''
 MAX_LENGTH = 4093
 
-'''
-target_langs = ['anglicky', 'nemecky', 'francuzsky', 'spanielsky', 'madarsky', 'taliansky', 'rusky']
-'''
 
-
-class Parser:
+class Parser:  
     def __init__(self, q):
         self.query = q.strip()
         self.text_length = MAX_LENGTH
         self.source = 'slovensko'
         self.target = os.environ['LANGUAGE']
+
 
 
     def download(self):
@@ -54,8 +51,8 @@ class Parser:
         self.text_length = length
         result = self.parse()
         if not result:
-            self.source = '{}o'.format(languages[7])
-            self.target = '{}y'.format(languages[0])
+            self.source = '{}o'.format(os.environ['LANGUAGE'][:-1])
+            self.target = 'slovensky'
             self.download()
             result = self.parse()
         return result
