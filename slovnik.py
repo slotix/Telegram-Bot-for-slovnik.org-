@@ -19,16 +19,16 @@ OUTPUT_LIMIT = int(os.environ['OUTPUT_LIMIT'])
 # Enable Logging
 logging.basicConfig(
         format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
-        level=logging.DEBUG)
+        level=logging.INFO)
 logger = logging.getLogger(__name__)
-logger.setLevel(logging.DEBUG)
+logger.setLevel(logging.INFO)
 fileHandler = logging.FileHandler("{0}/{1}.log".format("log","slovnik"))
 logger.addHandler(fileHandler)
 
 
 
 def log_params(method_name, update):
-    logger.debug("\nFrom: %s - %s %s \ndate: %s\nText: %s" %
+    logger.info("\nFrom: %s - %s %s \ndate: %s\nText: %s" %
                 (update.message.from_user.username,
                  update.message.from_user.first_name,
                  update.message.from_user.last_name,
