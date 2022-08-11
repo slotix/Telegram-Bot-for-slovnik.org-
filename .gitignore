@@ -3,3 +3,4 @@ venv36
 .env
 *.pyc
 log/slovnik.log
+slovnik.log
