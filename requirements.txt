@@ -1,5 +1,5 @@
 beautifulsoup4>=4.4.1
 bs4>=0.0.1
 future>=0.16.0
-python-telegram-bot>=11.1.0
+python-telegram-bot<11.1.0
 requests>=2.20.0
