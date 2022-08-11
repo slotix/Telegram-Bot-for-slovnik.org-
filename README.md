@@ -29,3 +29,6 @@ docker run -d -it --rm -v $(pwd)/log:/slovnik/log slotix/slovnik
 ```
 docker run -d -it --restart=always -v $(pwd)/log:/slovnik/log slotix/slovnik
 ```
+
+## Copy logs from remote host
+scp root@ip.addr:/slovnik/log/slovnik.log ~
