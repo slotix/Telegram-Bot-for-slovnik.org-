@@ -4,7 +4,7 @@ import re
 import os 
 
 '''http://slovnik.azet.sk/preklad/rusko-slovensky/?q=минимализм'''
-BASE_URL = "http://slovnik.azet.sk/preklad/{}-{}/?q={}"
+BASE_URL = "https://slovnik.aktuality.sk/preklad/{}-{}/?q={}"
 '''
     --- Telegram restrictions ---
     400 BAD_REQUEST	MESSAGE_TOO_LONG	Message was too long.
@@ -29,22 +29,21 @@ class Parser:
 
 
     def parse(self):
-        items = self.soup.find_all("a", attrs={"class": "unselectable lupa"})
+        items = self.soup.find_all("li", attrs={"class": "leading-7 list-item"})
         if len(items) == 0:
             return None
-        for item in items:
-            item.decompose()
-        items = self.soup.find_all("table", "p")
-        translated_items = [re.sub(r'\[[^\]]+\]', '', item.text) for item in items]
+        translated_items = [item.text.replace('(Pokračovanie pod reklamou)REKLAMA', '').replace('–','→') for item in items]   
+
 
 
         text = '\n'.join(translated_items)
-        if len(text) > self.text_length:
-            txt = (text[:self.text_length] + '...\n')
-            link  = '<a href="{}">More... </a>.'.format(BASE_URL.format(self.source, self.target, self.query))
-            return '{0}\n{1}'.format(txt, link)
-        else:
-            return text
+        # if len(text) > self.text_length:
+        #     txt = (text[:self.text_length] + '...\n')
+        #     link  = '<a href="{}">More... </a>.'.format(BASE_URL.format(self.source, self.target, self.query))
+        #     return '{0}\n{1}'.format(txt, link)
+        # else:
+        #     return text
+        return text
 
     def get_translated_text(self, length= MAX_LENGTH):
         self.download()
@@ -56,3 +55,14 @@ class Parser:
             self.download()
             result = self.parse()
         return result
+
+
+#testing ...
+# def main():
+#     parser = Parser('Blby')
+#     translated_text = parser.get_translated_text(length=MAX_LENGTH)
+#     print(translated_text)
+    
+
+# if __name__ == '__main__':
+#     main()
